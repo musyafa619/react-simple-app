@@ -1,0 +1,19 @@
+.customers-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+  background-color: rgba(94, 217, 158, 0.3);
+  min-height: 100vh;
+}
+
+.search-input {
+  width: 50%;
+  padding: 12px 20px;
+  margin-top: 10px;
+  margin-bottom: 30px;
+  display: inline-block;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  box-sizing: border-box;
+}

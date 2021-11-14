@@ -17,7 +17,11 @@ function ProductCard(props) {
   return (
     <div className="card-container">
       <div className="product-content">
-        <img className="product-img" src={props.data.img} alt="productImg" />
+        <img
+          className="product-img"
+          src={props.data.img}
+          alt="Product Preview"
+        />
         <h4>{props.data.name || "Name Placeholder"}</h4>
       </div>
       <div className="qty-container">
