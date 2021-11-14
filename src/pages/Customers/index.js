@@ -1,34 +1,53 @@
+import React, { useState, useEffect } from "react";
 import CustomerCard from "../../components/CustomerCard";
 import "./customers.css";
-
-const listCustomers = [
-  {
-    name: "Brian",
-    img: "https://reqres.in/img/faces/8-image.jpg",
-  },
-  {
-    name: "Josee",
-    img: "https://reqres.in/img/faces/7-image.jpg",
-  },
-  {
-    name: "Lil Skrrr",
-    img: "https://reqres.in/img/faces/11-image.jpg",
-  },
-];
+import axios from "axios";
 
 function Customers() {
+  const [listCustomers, setListCustomers] = useState([]);
+  const [filteredListCustomer, setFilteredListCustomer] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [keyword, setKeyword] = useState("");
+
+  const getListCustomer = () => {
+    axios.get("https://reqres.in/api/users?page=2").then((res) => {
+      setListCustomers(res.data.data);
+      setFilteredListCustomer(res.data.data);
+      setLoading(false);
+    });
+  };
+
+  useEffect(() => {
+    getListCustomer();
+  }, []);
+
+  useEffect(() => {
+    const newFilteredCustomer = listCustomers.filter((customer) =>
+      customer.first_name.toLowerCase().includes(keyword.toLowerCase())
+    );
+    setFilteredListCustomer(newFilteredCustomer);
+  }, [keyword]);
+
   return (
     <div className="customers-container">
       <h2>Customers</h2>
       <input
+        value={keyword}
+        onChange={(event) => setKeyword(event.target.value)}
         type="text"
         className="search-input"
         name="search"
         placeholder="Search Customer"
       />
-      {listCustomers.map((product, index) => (
-        <CustomerCard data={product} key={index} />
-      ))}
+      {loading ? (
+        <h3>Loading...</h3>
+      ) : (
+        <React.Fragment>
+          {filteredListCustomer.map((product, index) => (
+            <CustomerCard data={product} key={index} />
+          ))}
+        </React.Fragment>
+      )}
     </div>
   );
 }
