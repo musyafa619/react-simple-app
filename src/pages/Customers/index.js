@@ -26,6 +26,7 @@ function Customers() {
       customer.first_name.toLowerCase().includes(keyword.toLowerCase())
     );
     setFilteredListCustomer(newFilteredCustomer);
+    // eslint-disable-next-line
   }, [keyword]);
 
   return (
