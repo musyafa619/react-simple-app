@@ -1,5 +1,6 @@
 import ProductCard from "../../components/ProductCard";
 import "./home.css";
+import { useNavigate } from "react-router-dom";
 
 const listProduct = [
   {
@@ -17,12 +18,20 @@ const listProduct = [
 ];
 
 function Home() {
+  const navigate = useNavigate();
+  const handleLogout = () => {
+    localStorage.clear();
+    navigate("/login");
+  };
   return (
     <div className="home-container">
       <h2>React Simple Cart</h2>
       {listProduct.map((product, index) => (
         <ProductCard data={product} key={index} />
       ))}
+      <button onClick={handleLogout} className="logout-button">
+        Logout
+      </button>
     </div>
   );
 }
